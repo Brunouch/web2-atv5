@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ClienteController extends Controller
-{
+class ClienteController extends Controller {
     
-    public  $clientes = [[
-        " id " => 1 ,
-        " nome " => " Bruno Gabriel Zordenunes ",
-        " e- mail " => " bruno@gmail.com "
+    
+    public $clientes = [[
+        "id" => 1,
+        "nome" => "Gil Eduardo",
+        "email" => "gil@gmail.com"
     ]];
 
     public function __construct() {
@@ -20,24 +20,24 @@ class ClienteController extends Controller
             session(['clientes' => $this->clientes]);
         }
     }
-    public function index()
-    {
+    
+    public function index() {
+        
         $dados = session('clientes');
         $clinica = "VetClin DWII";
 
-        
+        // Passa um array "dados" com os "clientes" e a string "clínicas"
         return view('clientes.index', compact(['dados', 'clinica']));
+        // return view('cliente.index')->with('dados', $dados)->with('clinica', $clinica);
     }
 
-    
-    public function create()
-    {
+    public function create() {
+
         return view('clientes.create');
     }
 
-   
-    public function store(Request $request)
-    {
+   public function store(Request $request) {
+        
         $aux = session('clientes');
         $ids = array_column($aux, 'id');
 
@@ -60,9 +60,8 @@ class ClienteController extends Controller
         return redirect()->route('clientes.index');
     }
 
-    
-    public function show($id)
-    {
+    public function show($id) {
+        
         $aux = session('clientes');
         
         $index = array_search($id, array_column($aux, 'id'));
@@ -72,21 +71,19 @@ class ClienteController extends Controller
         return view('clientes.show', compact('dados'));
     }
 
-    
-    public function edit($id)
-    {
+    public function edit($id) {
+
         $aux = session('clientes');
             
         $index = array_search($id, array_column($aux, 'id'));
 
         $dados = $aux[$index];    
 
-        return view('clientes.edit', compact('dados'));
+        return view('clientes.edit', compact('dados'));        
     }
 
-   
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
+        
         $aux = session('clientes');
         
         $index = array_search($id, array_column($aux, 'id'));
@@ -103,9 +100,7 @@ class ClienteController extends Controller
         return redirect()->route('clientes.index');
     }
 
-    
-    public function destroy($id)
-    {
+    public function destroy($id) {
         $aux = session('clientes');
         
         $index = array_search($id, array_column($aux, 'id')); 

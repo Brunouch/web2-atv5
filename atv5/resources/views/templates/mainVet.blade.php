@@ -106,7 +106,7 @@
               <h5 class="modal-title text-danger">Operação de Remoção</h5>
               <button type="button" class="btn-close" data-bs-dismiss="removeModal" onclick="closeRemoveModal()" aria-label="Close"></button>
             </div>
-            <input type="hidden" id="id_remove">
+            <input type="hidden" crmv="crmv_remove">
             <div class="modal-body text-secondary">
             </div>
             <div class="modal-footer">
@@ -143,8 +143,8 @@
         function closeInfoModal() {
             $("#infoModal").modal('hide');
         }
-        function showRemoveModal(id, nome) {
-            $('#id_remove').val(id);
+        function showRemoveModal(crmv, nome) {
+            $('#id_remove').val(crmv);
             $('#removeModal').modal().find('.modal-body').html("");
             $('#removeModal').modal().find('.modal-body').append("Deseja remover o registro <b class='text-danger'>'"+nome+"'</b> ?");
             $("#removeModal").modal('show');
@@ -153,8 +153,8 @@
             $("#removeModal").modal('hide');
         }
         function remove() {
-            let id = $('#id_remove').val();
-            let form = "form_" + $('#id_remove').val();
+            let crmv = $('#crmv_remove').val();
+            let form = "form_" + $('#crmv_remove').val();
             document.getElementById(form).submit();
             $("#removeModal").modal('hide')
         }
