@@ -1,5 +1,5 @@
 <!-- Herda o layout padrão definido no template "main" -->
-@extends('templates.mainVet', ['titulo' => "Alterar Veterinário"])
+@extends('templates.main', ['titulo' => "Alterar Veterinário"])
 <!-- Preenche o conteúdo da seção "titulo" -->
 @section('titulo') Veterinários @endsection
 <!-- Preenche o conteúdo da seção "conteudo" -->
