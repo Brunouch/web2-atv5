@@ -2,120 +2,88 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Veterinario;
 use Illuminate\Http\Request;
 
 class VeterinarioController extends Controller
 {
-    
-    public $veterinarios = [[
-        "crmv" => 1,
-        "nome" => "Gil Eduardo",
-        "especialidade" => "Geral"
-    ]];
 
-    public function __construct() {
-        $aux = session('veterinarios');
 
-        if(!isset($aux)) {
-            session(['veterinarios' => $this->veterinarios]);
-        }
-    }
 
     public function index()
     {
-        $dados = session('veterinarios');
+        $dados = Veterinario::all();
         $clinica = "VetClin DWII";
 
-        return view('veterinarios.index', compact(['dados', 'clinica']));
+        return view('veterinarios.index', compact('dados'));
     }
 
-    
+
     public function create()
     {
         return view('veterinarios.create');
     }
 
-   
+
     public function store(Request $request)
     {
-        $aux = session('veterinarios');
-        $crmvs = array_column($aux, 'crmv');
-
-        if(count($crmvs) > 0) {
-            $new_crmv = max($crmvs) + 1;
-        }
-        else {
-            $new_crmv = 1;   
-        }
-
-        $novo = [
-            "crmv" => $new_crmv,
-            "nome" => $request->nome,
-            "especialidade" => $request->especialidade
-        ];
-
-        array_push($aux, $novo);
-        session(['veterinarios' => $aux]);
+        Veterinario::create([
+            'crmv' => $request->crmv,
+            'nome' => mb_strtoupper($request->nome, 'UTF8'),
+            'especialidade_id' => $request->especialidade_id,
+        ]);
 
         return redirect()->route('veterinarios.index');
     }
 
-    
+
     public function show($crmv)
+    { }
+
+
+    public function edit($id)
     {
-        $aux = session('veterinarios');
-        
-        $index = array_search($crmv, array_column($aux, 'crmv'));
 
-        $dados = $aux[$index];
+        $dados = Veterinario::find($id);
 
-        return view('veterinarios.show', compact('dados'));
-    }
+        if (!isset($dados)) {
+            return "<h1>ID: $id não encontrado!</h1>";
+        }
 
-   
-    public function edit($crmv)
-    {
-        
-        $aux = session('veterinarios');
-            
-        $index = array_search($crmv, array_column($aux, 'crmv'));
-
-        $dados = $aux[$index];    
-
-        return view('veterinarios.edit', compact('dados')); 
+        return view('veterinarios.edit', compact('dados'));
     }
 
 
-    public function update(Request $request, $crmv)
+    public function update(Request $request, $id)
     {
-        $aux = session('veterinarios');
-        
-        $index = array_search($crmv, array_column($aux, 'crmv'));
+        $obj = Veterinario::find($id);
 
-        $novo = [
-            "crmv" => $crmv,
-            "nome" => $request->nome,
-            "especialidade" => $request->especialidade,
-        ];
+        if (!isset($obj)) {
+            return "<h1>ID: $id não encontrado!</h1>";
+        }
 
-        $aux[$index] = $novo;
-        session(['veterinarios' => $aux]);
+        $obj->fill([
+            'crmv' => $request->nome,
+            'nome' => mb_strtoupper($request->nome, 'UTF8'),
+            'especialidade' => $request->especialidade,
+        ]);
+
+        $obj->save();
 
         return redirect()->route('veterinarios.index');
     }
 
- 
-    public function destroy($crmv)
+
+    public function destroy($id)
     {
-        $aux = session('veterinarios');
-        
-        $index = array_search($crmv, array_column($aux, 'crmv')); 
+        $obj = Veterinario::find($id);
 
-        unset($aux[$index]);
+        if (!isset($obj)) {
+            return "<h1>ID: $id não encontrado!</h1>";
+        }
 
-        session(['veterinarios' => $aux]);
+        $obj->destroy();
 
         return redirect()->route('veterinarios.index');
-
     }
 }

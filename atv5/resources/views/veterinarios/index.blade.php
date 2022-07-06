@@ -5,16 +5,12 @@
 <!-- Preenche o conteúdo da seção "conteudo" -->
 @section('conteudo')
 
-    <div class="row">
-        <div class="col">
-            
-            <!-- Utiliza o componente "datalist" criado -->
-            <x-datalistVet 
-                :header="['CRMV', 'NOME', 'ESPECIALIDADE', 'AÇÕES']" 
-                :data="$dados"
-                :hide="[true, false, true, false]" 
-            />
+<div class="row">
+    <div class="col">
 
-        </div>
+        <!-- Utiliza o componente "datalist" criado -->
+        <x-datalistVet :title="Veterinarios" :crud="veterinarios" :header="['CRMV', 'NOME', 'ESPECIALIDADE', 'AÇÕES']" :fields="['id', 'crmv', 'nome']" :data="$dados" :hide="[true, false, true, false]" :info="['id', 'crmv', 'nome', 'especialidade_id']" :remove="nome" />
+
     </div>
+</div>
 @endsection

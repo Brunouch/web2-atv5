@@ -10,9 +10,14 @@
             
             <!-- Utiliza o componente "datalist" criado -->
             <x-datalist 
+                :title="'Clientes'"
+                :crud="'clientes'"
                 :header="['ID', 'NOME', 'E-MAIL', 'AÇÕES']" 
+                :fields="['id', 'nome', 'email']"
                 :data="$dados"
-                :hide="[true, false, true, false]" 
+                :hide="[true, false, true, false]"
+                :info="['id', 'nome', 'email']"
+                :remove="'nome'" 
             />
 
         </div>
