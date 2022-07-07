@@ -18,5 +18,5 @@ Route::get('/', function () {
 })->name('index');
 
 Route::resource('clientes', 'ClienteController');
-//Route::resource('especialidades', 'EspecialidadeController');
+Route::resource('especialidades', 'EspecialidadeController');
 Route::resource('veterinarios', 'VeterinarioController');
