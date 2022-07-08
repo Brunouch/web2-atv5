@@ -37,7 +37,7 @@ class EspecialidadesController extends Controller
     {
         $dados = Especialidade::find($id);
 
-        if(!isset(dados)){return "<h1>ID: $id não encontrado!</h1>";}
+        if(!isset($dados)){return "<h1>ID: $id não encontrado!</h1>";}
 
         return view('especialidades.edit', compact('dados'));
     }
