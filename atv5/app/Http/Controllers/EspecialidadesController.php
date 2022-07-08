@@ -15,69 +15,65 @@ class EspecialidadesController extends Controller
         return view('especialidades.index', compact('dados'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('especialidade.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
-        //
+        Especialidade::create([
+            'nome' =>$request->nome,
+            'descricao' => $request->descricao,
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+    
+    public function show($id){}
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit($id)
     {
-        //
+        $dados = Especialidade::find($id);
+
+        if(!isset(dados)){return "<h1>ID: $id não encontrado!</h1>";}
+
+        return view('especialidades.edit', compact('dados'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function update(Request $request, $id)
     {
-        //
+        $obj = Especialidade::find($id);
+
+        $obj->fill([
+
+            'nome'=>$request->nome,
+            'descricao'=>$request->descricao,
+
+        ]);
+
+        $obj->save();
+
+        return redirect()->route('especialidade.index'); 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy($id)
     {
-        //
+        $obj = Especialidade::find($id);
+
+        $obj->fill([
+
+            'nome'=>$request->nome,
+            'descricao'=>$request->descricao,
+
+        ]);
+
+        $obj->destroy($id);
+
+        return redirect()->route('especialidade.index');
+        
     }
 }

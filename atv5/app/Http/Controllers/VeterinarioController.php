@@ -20,8 +20,10 @@ class VeterinarioController extends Controller
 
 
     public function create()
+
     {
-        return view('veterinarios.create');
+        $esp = Especialidade::all();
+        return view('veterinarios.create', compact('esp'));
     }
 
 
@@ -45,12 +47,13 @@ class VeterinarioController extends Controller
     {
 
         $dados = Veterinario::find($id);
+        $esp = Especialidade::all();
 
         if (!isset($dados)) {
             return "<h1>ID: $id não encontrado!</h1>";
         }
 
-        return view('veterinarios.edit', compact('dados'));
+        return view('veterinarios.edit', compact(['dados', 'esp']));
     }
 
 

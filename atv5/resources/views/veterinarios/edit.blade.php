@@ -9,33 +9,47 @@
     @csrf
     @method('PUT')
     <div class="row">
-        <div class="col" >
-            <div class="form-floating mb-3">
-                <input 
-                    type="text" 
-                    class="form-control" 
-                    name="nome" 
-                    placeholder="Nome"
-                    value="{{$dados['nome']}}"
-                />
-                <label for="nome">Nome do Veterinário</label>
+            <div class="col" >
+                <div class="form-floating mb-3">
+                    <input 
+                        type="number" 
+                        class="form-control" 
+                        name="crmv" 
+                        placeholder="CRMV"
+                        value="{{old('crmv')}}"
+                    />
+                    <label for="nome">CRMV do Veterinário</label>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col" >
-            <div class="form-floating mb-3">
-                <input 
-                    type="especialidade" 
-                    class="form-control" 
-                    name="especialidade" 
-                    placeholder="Especialidade"
-                    value="{{$dados['especialidade']}}"
-                />
-                <label for="especialidade">E-mail do Veterinário</label>
+        <div class="row">
+            <div class="col" >
+                <div class="form-floating mb-3">
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        name="nome" 
+                        placeholder="Nome"
+                        value="{{old('nome')}}"
+                    />
+                    <label for="nome">Nome do Veterinário</label>
+                </div>
             </div>
         </div>
-    </div>
+        <div class="row">
+            <div class="col" >
+                <div class="form-floating mb-3">
+                    <select name="especialidade" class="from-control">
+                        @foreach($esp as $i)
+                            <option value="{{$i->id}}">
+                                {{$i->nome}}
+                            </option>
+                        @endforeach
+                    </select>                    
+                   <label for="especialidade">Especialidade do Veterinário</label>
+                </div>
+            </div>
+        </div>
     <div class="row">
         <div class="col">
             <a href="{{route('veterinarios.index')}}" class="btn btn-secondary btn-block align-content-center">

@@ -11,6 +11,20 @@
             <div class="col" >
                 <div class="form-floating mb-3">
                     <input 
+                        type="number" 
+                        class="form-control" 
+                        name="crmv" 
+                        placeholder="CRMV"
+                        value="{{old('crmv')}}"
+                    />
+                    <label for="nome">CRMV do Veterinário</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" >
+                <div class="form-floating mb-3">
+                    <input 
                         type="text" 
                         class="form-control" 
                         name="nome" 
@@ -24,14 +38,14 @@
         <div class="row">
             <div class="col" >
                 <div class="form-floating mb-3">
-                    <input 
-                        type="especialidade" 
-                        class="form-control" 
-                        name="especialidade" 
-                        placeholder="Especialidade"
-                        value="{{old('especialidade')}}"
-                    />
-                    <label for="especialidade">Especialidade do Veterinário</label>
+                    <select name="especialidade" class="from-control">
+                        @foreach($esp as $i)
+                            <option value="{{$i->id}}">
+                                {{$i->nome}}
+                            </option>
+                        @endforeach
+                    </select>                    
+                   <label for="especialidade">Especialidade do Veterinário</label>
                 </div>
             </div>
         </div>
